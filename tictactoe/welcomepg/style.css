@@ -1,0 +1,73 @@
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    background-color: #004d00; /* Dark Green */
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Welcome Container */
+  .welcome-container {
+    max-width: 400px;
+    width: 90%;
+    padding: 30px 20px;
+    background-color: #006600; /* Slightly lighter green */
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .welcome-container:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Title */
+  .welcome-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  /* Buttons */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .btn {
+    background-color: white;
+    color: #004d00;
+    border: none;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .btn:hover {
+    background-color: #ccffcc;
+    transform: translateY(-2px);
+  }
+  
+  /* Footer */
+  footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+  
