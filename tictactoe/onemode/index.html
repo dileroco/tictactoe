@@ -36,10 +36,43 @@
       </label>
 
 
-      <div class="score">You: <span id="scoreX">0</span> - <span id="scoreO">0</span> :Computer</div>
-      <div class="top-right">
+
+
+<!-- From Uiverse.io by Deri-Kurniawan --> 
+<div class=" flex flex-row gap-2 ">
+  
+  <div class="flex flex-col gap-2">
+    <div class="animate-pulse w-28 h-8 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #004d00;">
+      You
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+: 
+
+
+
+<span id="scoreX">0</span> - <span id="scoreO">0</span> :
+
+
+
+<div class="flex flex-col gap-2">
+  <div class="animate-pulse w-28 h-8 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #004d00;">
+    Computer
+  </div>
+</div>
+
+
+</div> <div class="top-right">
         <span class="mode">One Player</span>
-        <a href="index.html" class="home-btn">🏠</a>
+        <a href="../welcomepg/index.html" class="home-btn">🏠</a>
       </div>
     </div>
 
@@ -117,6 +150,7 @@
             gameOver = true;
             win++;
             achive = true;
+            updateScore()
             celebrate();
             return;
           }
@@ -161,6 +195,7 @@
           gameOver = true;
           lose++;
           showLose();
+          updateScore()
           return;
         }
 
@@ -264,7 +299,10 @@
 
 
 
-
+    const updateScore = () => {
+      document.getElementById("scoreX").innerText = win;
+      document.getElementById("scoreO").innerText = lose;
+    };
 
 
 
@@ -291,5 +329,7 @@ checkbox.addEventListener('change', () => {
 
     
   </script>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- Load Tailwind via CDN -->
+
 </body>
 </html>
