@@ -38,3 +38,7 @@ Tic-Tac-Toe game built with HTML, CSS, and JavaScript.
 2. Open the project folder.
 3. Open `tictactoe/welcomepg/index.html` in your browser.
 4. Choose your preferred game mode and start playing.
+
+## Third-party materials
+
+Attribution and licensing notes for the Uiverse CSS component, dotLottie player, and celebration animation are documented in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
