@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue - Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #004d00;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .welcome-container {
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      background-color: white;
+      color: #004d00;
+      border: none;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e0ffe0;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container">
+    <h1>Bienvenue à<br>Tic Tac Toe</h1>
+    
+    <div class="buttons">
+      <a href="./../onemode/index.html" class="btn">🎮 1 Joueur</a>
+      <a href="./../towmode/index.html" class="btn">👥 2 Joueurs</a>
+    </div>
+
+    <footer>
+      &copy; 2025 H.Z.B.F.M Games
+    </footer>
+  </div>
+</body>
+</html>

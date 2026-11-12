@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe - One Player</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="background-bubbles">
+      <div class="bubble">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="bubble">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="bubble">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="bubble">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="bubble">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="game-container">
+      <div class="top-bar">
+        <label class="switch">
+          <input checked="true" id="checkbox" type="checkbox" />
+          <span class="slider">
+            <div class="star star_1"></div>
+            <div class="star star_2"></div>
+            <div class="star star_3"></div>
+            <svg viewBox="0 0 16 16" class="cloud_1 cloud">
+              <path
+                transform="matrix(.77976 0 0 .78395-299.99-418.63)"
+                fill="#fff"
+                d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"
+              ></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="flex flex-row gap-2">
+          <div class="player-container">
+            <div class="label">You</div>
+
+            : <span id="scoreX">0</span> - <span id="scoreO">0</span> :
+
+            <div class="label">Computer</div>
+          </div>
+        </div>
+        <div class="top-right">
+          <span class="mode">One Player</span>
+          <a href="../welcomepg/index.html" class="home-btn">🏠</a>
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div id="player1" class="player active">You (X)</div>
+        <div id="player2" class="player">Computer (O)</div>
+      </div>
+
+      <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+    </div>
+
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+    <dotlottie-player
+      class="celebration"
+      src="https://lottie.host/e95e01c9-3b71-46c0-a4de-f702971b3ddf/iYTyDrgIvp.lottie"
+      background="transparent"
+      speed="1.5"
+      style="
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+        pointer-events: none;
+      "
+      loop
+      autoplay
+    ></dotlottie-player>
+
+    <div class="result-message" id="resultMessage" style="display: none">
+      <div class="result-box">
+        <h1 id="resultText">You Win!</h1>
+        <button onclick="resetGame()">Play Again</button>
+      </div>
+    </div>
+
+    <script>
+      let regboard = ["", "", "", "", "", "", "", "", ""];
+      let winCases = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [6, 4, 2],
+      ];
+
+      let win = 0;
+      let lose = 0;
+      let achive;
+      let cur = "X";
+      let winCell;
+      let gameOver = false;
+
+      const cells = document.querySelectorAll(".cell");
+
+      cells.forEach((cell, index) => {
+        cell.addEventListener("click", () => {
+          if (cell.innerText === "" && !gameOver && cur === "X") {
+            cell.innerText = cur;
+            regboard[index] = cur;
+
+            let winner = checkwin();
+            if (winner === "X") {
+              gameOver = true;
+              win++;
+              achive = true;
+              updateScore();
+              celebrate();
+              return;
+            }
+
+            setTimeout(() => {
+              oorx();
+            }, 300);
+          }
+        });
+      });
+
+      const oorx = () => {
+        if (cur === "X") {
+          cur = "O";
+
+          for (let combo of winCases) {
+            const [a, b, c] = combo;
+            const values = [regboard[a], regboard[b], regboard[c]];
+            const oCount = values.filter((v) => v === "O").length;
+            const emptyIndex = [a, b, c].find((i) => regboard[i] === "");
+
+            if (oCount === 2 && emptyIndex !== undefined) {
+              playMove(emptyIndex);
+              return;
+            }
+          }
+
+          for (let combo of winCases) {
+            const [a, b, c] = combo;
+            const values = [regboard[a], regboard[b], regboard[c]];
+            const xCount = values.filter((v) => v === "X").length;
+            const emptyIndex = [a, b, c].find((i) => regboard[i] === "");
+
+            if (xCount === 2 && emptyIndex !== undefined) {
+              playMove(emptyIndex);
+              return;
+            }
+          }
+
+          if (regboard[4] === "") {
+            playMove(4);
+            return;
+          }
+
+          let emptyCells = [];
+          regboard.forEach((val, idx) => {
+            if (val === "") emptyCells.push(idx);
+          });
+
+          if (emptyCells.length === 0) {
+            gameOver = true;
+            showDraw();
+            return;
+          }
+
+          let randomIndex =
+            emptyCells[Math.floor(Math.random() * emptyCells.length)];
+          playMove(randomIndex);
+        }
+      };
+
+      const playMove = (index) => {
+        cells[index].innerText = "O";
+        regboard[index] = "O";
+
+        let winner = checkwin();
+        if (winner === "O") {
+          gameOver = true;
+          lose++;
+          showLose();
+          updateScore();
+          return;
+        }
+
+        cur = "X";
+      };
+
+      const celebrate = () => {
+        if (achive) {
+          speak("You Win!");
+          const dotlottie = document.querySelector(".celebration");
+          dotlottie.style.display = "block";
+
+          const resultM = document.getElementById("resultMessage");
+          const resultText = document.getElementById("resultText");
+
+          resultM.style.display = "flex";
+          resultText.innerText = "You Win!";
+
+          const resultBox = document.querySelector(".result-box");
+          resultBox.classList.remove("lose");
+          resultBox.classList.add("win");
+
+          cells.forEach((cell) => {
+            if (winCell.includes(parseInt(cell.dataset.index)))
+              cell.classList.add("active");
+          });
+        }
+      };
+
+      const checkwin = () => {
+        let winner;
+
+        for (let C of winCases) {
+          let [a, b, c] = C;
+          if (
+            regboard[a] &&
+            regboard[a] === regboard[b] &&
+            regboard[a] === regboard[c]
+          ) {
+            winCell = [a, b, c];
+            winner = regboard[a];
+          }
+        }
+
+        return winner;
+      };
+
+      const showLose = () => {
+        speak("You Lose!");
+        const resultM = document.getElementById("resultMessage");
+        const resultText = document.getElementById("resultText");
+        const dotlottie = document.querySelector(".celebration");
+
+        resultM.style.display = "flex";
+        resultText.innerText = "You Lose!";
+        const resultBox = document.querySelector(".result-box");
+        resultBox.classList.remove("win");
+        resultBox.classList.add("lose");
+
+        cells.forEach((cell) => {
+          if (winCell.includes(parseInt(cell.dataset.index)))
+            cell.classList.add("lose");
+        });
+      };
+
+      const showDraw = () => {
+        speak(`It's a Draw!`);
+        const resultM = document.getElementById("resultMessage");
+        const resultText = document.getElementById("resultText");
+        const dotlottie = document.querySelector(".celebration");
+
+        dotlottie.style.display = "none";
+        resultM.style.display = "flex";
+        resultText.innerText = "It's a Draw!";
+        const resultBox = document.querySelector(".result-box");
+        resultBox.classList.remove("win", "lose");
+        resultBox.classList.add("draw");
+      };
+
+      const resetGame = () => {
+        regboard = ["", "", "", "", "", "", "", "", ""];
+        cells.forEach((cell) => {
+          cell.innerText = "";
+          cell.classList.remove("active","lose");
+        });
+        document.getElementById("resultMessage").style.display = "none";
+        document.querySelector(".celebration").style.display = "none";
+        cur = "X";
+        gameOver = false;
+      };
+
+      const updateScore = () => {
+        document.getElementById("scoreX").innerText = win;
+        document.getElementById("scoreO").innerText = lose;
+      };
+
+      const checkbox = document.getElementById("checkbox");
+
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          document.body.classList.remove("dark");
+        } else {
+          document.body.classList.add("dark");
+        }
+      });
+
+      function speak(text) {
+        let voice = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(voice);
+      }
+    </script>
+  </body>
+</html>
