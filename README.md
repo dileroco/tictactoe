@@ -4,15 +4,14 @@ Tic-Tac-Toe game built with HTML, CSS, and JavaScript.
 
 ## Screenshots
 
-![Page](images/img1.png)
+![Page](tictactoe/images/img1.png)
+
+![Page](tictactoe/images/img2.png)
+
+![Page](tictactoe/images/img3.png)
 
 
-![Page](images/img2.png)
-
-![Page](images/img3.png)
-
-
-![Page](images/img4.png)
+![Page](tictactoe/images/img4.png)
 
 ## Features
 
